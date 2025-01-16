@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <h1>Already logged in</h1>
+    <p>You are already logged in as {{ user.username }}.
+        <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+        </form>
+    </p>
+    <p>
+        Return <a href="{% url 'home' %}">Home</a>
+    </p>
+{% else %}
+    <h1>Register</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+{% endif %}
+{% endblock content %}

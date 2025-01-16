@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Update a Blog Post
+{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<h1>Update a Blog Post</h1>
+<br><hr>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update</button>
+</form>
+
+{% else %}
+
+    <h1>Not logged in</h1>
+    <p>You must be logged in to update a blog post.</p>
+    <p>
+        <a href="{% url 'signup' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>
+        Return <a href="{% url 'home' %}">Home</a>
+    </p>
+
+{% endif %}
+
+{% endblock content %}

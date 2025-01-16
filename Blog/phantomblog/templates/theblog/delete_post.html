@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete a Blog Post
+{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>Delete a Blog Post</h1>
+<br><hr>
+
+<form method="post">
+    {% csrf_token %}
+    <strong>Are you sure?</strong>
+    <br><br>
+    <button type="submit">Delete Post!</button>
+    <a href="{% url 'home' %}">
+        <button type="">No</button>
+    </a>
+</form>
+
+{% else %}
+    <h1>Not logged in</h1>
+    <p>You must be logged in to delete a post.</p>
+    <p>
+        <a href="{% url 'signup' %}">Register</a>
+        <a href="{% url 'login' %}">Login</a>    
+
+        Return <a href="{% url 'home' %}">Home</a>
+    </p>
+{% endif %}
+
+{% endblock content %}
