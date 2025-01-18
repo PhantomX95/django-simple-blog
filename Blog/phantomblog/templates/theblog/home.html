@@ -6,23 +6,24 @@
 
 {% block content %}
 
+
 {% if user.is_authenticated %}
-    <a href="{% url 'add_post' %}">Add Post</a>
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+<a href="{% url 'add_post' %}">Add Post</a>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
 {% else %}
-    <a href="{% url 'signup' %}">Register</a>
-    <a href="{% url 'login' %}">Login</a>
+<a href="{% url 'signup' %}">Register</a>
+<a href="{% url 'login' %}">Login</a>
 {% endif %}
 
 <h1>Posts</h1>
-    <ul>
+<ul>
         {% for post in object_list %}
         <li>
             <h2>
-                <a href="{% url 'article_detail' post.slug %}">{{ post.title }}</a> - 
+                <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">{{ post.title }}</a> - 
                 <small>{{ post.author.first_name }} {{ post.author.last_name }}</small>
             </h2>
             {% if user.is_authenticated %}
