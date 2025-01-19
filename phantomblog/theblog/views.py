@@ -2,11 +2,14 @@ from .models import Post, Category
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import PostForm
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # View to display the home page
 class Home(ListView):
     model = Post
     template_name = 'theblog/home.html'
+    context_object_name = 'posts'
+    paginate_by = 5
 
     def get_queryset(self):
         return Post.objects.filter(status=2).order_by('-created_on')

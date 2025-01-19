@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Phantom Blog
+{% endblock title %}
+
+{% block content %}
+
+
+{% if user.is_authenticated %}
+<a href="{% url 'add_post' %}">Add Post</a>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+{% else %}
+<a href="{% url 'signup' %}">Register</a>
+<a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+<h1>Posts</h1>
+<ul>
+        {% for post in posts %}
+        <li>
+            <h2>
+                <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">{{ post.title }}</a> - 
+                <small>{{ post.author.first_name }} {{ post.author.last_name }}</small>
+            </h2>
+            {% if user.is_authenticated %}
+                <a href="{% url 'update_post' slug=post.slug %}">Edit</a>
+                <a href="{% url 'delete_post' slug=post.slug %}">Delete</a>
+            {% endif %}
+            <p>{{ post.content }}</p>
+            <p>{{ post.created_on }}</p>
+            <img src="{{ post.img.url }}" alt="No image">
+            <br>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% if is_paginated %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page=1">&laquo; first</a>
+                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page_obj.next_page_number }}">next</a>
+                <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key }}={{ value }}&{% endif %}{% endfor %}page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+
+{% endblock content %}

@@ -21,7 +21,7 @@ class PostForm(forms.ModelForm):
         instance = super().save(commit=False)
         new_category = self.cleaned_data['new_category']
 
-        if new_category:
+        if new_category and new_category.strip():
             category, created = Category.objects.get_or_create(name=new_category)
             instance.category = category
 
