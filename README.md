@@ -38,7 +38,7 @@ Ensure that you have the following installed:
 
    ```bash
    python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   venv\Scripts\activate
    ```
 
 3. Install the project dependencies:
@@ -75,9 +75,6 @@ Ensure that you have the following installed:
 - Users can register, log in, and manage their profiles.
 - Admin users can manage blog posts through the Django admin interface.
 
-## Contributing
-
-Feel free to fork the repository and submit pull requests for bug fixes, new features, or enhancements!
 
 ---
 
