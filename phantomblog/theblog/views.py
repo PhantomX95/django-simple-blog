@@ -1,8 +1,7 @@
-from .models import Post, Category
+from .models import Post
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import PostForm
 from django.urls import reverse_lazy
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # View to display the home page
 class Home(ListView):
