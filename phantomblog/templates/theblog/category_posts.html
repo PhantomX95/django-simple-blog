@@ -1,11 +1,46 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{ category.name }} - Posts
+    Posts in {{ category }} Category
 {% endblock title %}
 
 {% block content %}
 
+<h1>posts in {{ category }} category</h1>
+{% if posts %}
 
+    {% for post in posts %}
+        <h2>
+            <a href="{% url 'category_posts' category_slug=post.category.slug  %}">{{ post.title }}</a> - 
+            <small>{{ post.author.first_name }} {{ post.author.last_name }}</small>
+        </h2>
+        <p>{{ post.content }}</p>
+        <p>{{ post.created_on }}</p>
+        <p>{{ post.category }}</p>
+        <img src="{{ post.img.url }}" alt="No image">
+        <br>
+    {% endfor %}
+
+{% else %}
+
+    <p>No posts found in this category.</p>
+
+{% endif %}
+
+
+{% if is_paginated %}
+<nav aria-label="Page navigation conatiner"></nav>
+<ul class="pagination justify-content-center">
+  {% if page_obj.has_previous %}
+  <li><a href="?page={{ page_obj.previous_page_number }}"
+class="page-link">&laquo; Newer </a></li>
+  {% endif %}
+  {% if page_obj.has_next %}
+  <li><a href="?page={{ page_obj.next_page_number }}"
+class="page-link"> Older &raquo;</a></li>
+  {% endif %}
+</ul>
+</nav></div>
+{% endif %}
 
 {% endblock content %}

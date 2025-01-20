@@ -1,4 +1,4 @@
-from .models import Post
+from .models import Post, Category
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import PostForm
 from django.urls import reverse_lazy
@@ -8,7 +8,7 @@ class Home(ListView):
     model = Post
     template_name = 'theblog/home.html'
     context_object_name = 'posts'
-    paginate_by = 5
+    paginate_by = 2
 
     def get_queryset(self):
         return Post.objects.filter(status=2).order_by('-created_on')
@@ -43,3 +43,23 @@ class DeletePost(DeleteView):
     model = Post
     template_name = 'theblog/delete_post.html'
     success_url = reverse_lazy('home')
+
+# Create a ListView to display the category-wise posts
+class CategoryView(ListView):
+    model = Post
+    template_name = 'theblog/category_posts.html'
+    context_object_name = 'posts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Post.objects.filter(status=2, category__slug=self.kwargs['category_slug']).order_by('-created_on')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.kwargs['category_slug']
+        return context
+
+class CategoryList(ListView):
+    model = Category
+    template_name = 'theblog/categories.html'
+    context_object_name = 'categories'

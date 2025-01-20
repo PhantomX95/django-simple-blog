@@ -11,7 +11,6 @@ class Category(models.Model):
     # Meta class to provide a human-readable name for the model
     class Meta:
         verbose_name_plural = "categories"
-        verbose_name = "category"
 
     # Automatically generate the slug if not provided
     def save(self, *args, **kwargs):
