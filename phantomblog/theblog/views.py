@@ -1,6 +1,6 @@
 from .models import Post, Category
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .forms import PostForm
+from .forms import PostForm, UpdatePostForm
 from django.urls import reverse_lazy
 
 # View to display the home page
@@ -32,7 +32,7 @@ class CreatePost(CreateView):
 class UpdatePost(UpdateView):
     model = Post
     template_name = 'theblog/update_post.html'
-    form_class = PostForm
+    form_class = UpdatePostForm
 
     # Redirect to the detail page of the post after updating a post
     def get_success_url(self):

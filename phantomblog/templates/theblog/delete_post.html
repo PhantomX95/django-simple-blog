@@ -7,18 +7,28 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-<h1>Delete a Blog Post</h1>
-<br><hr>
+    {% if user.id == post.author.id %}
 
-<form method="post">
-    {% csrf_token %}
-    <strong>Are you sure?</strong>
-    <br><br>
-    <button type="submit">Delete Post!</button>
-    <a href="{% url 'home' %}">
-        <button type="">No</button>
-    </a>
-</form>
+        <h1>Delete a Blog Post</h1>
+        <br><hr>
+
+        <form method="post">
+            {% csrf_token %}
+            <strong>Are you sure?</strong>
+            <br><br>
+            <button type="submit">Delete Post!</button>
+            <a href="{% url 'home' %}">
+                <button type="">No</button>
+            </a>
+        </form>
+    
+    {% else %}
+        <h1>Not authorized</h1>
+        <p>You are not authorized to delete this post.</p>
+        <p>
+            Return <a href="{% url 'home' %}">Home</a>
+        </p>
+    {% endif %}
 
 {% else %}
     <h1>Not logged in</h1>

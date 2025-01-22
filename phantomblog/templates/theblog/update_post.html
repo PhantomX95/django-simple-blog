@@ -7,15 +7,23 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
 
-<h1>Update a Blog Post</h1>
-<br><hr>
+        <h1>Update a Blog Post</h1>
+        <br><hr>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Update</button>
-</form>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update</button>
+        </form>
+    {% else %}
+        <h1>Not authorized</h1>
+        <p>You are not authorized to update this post.</p>
+        <p>
+            Return <a href="{% url 'home' %}">Home</a>
+        </p>
+    {% endif %}
 
 {% else %}
 

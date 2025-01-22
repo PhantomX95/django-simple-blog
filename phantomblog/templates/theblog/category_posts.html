@@ -11,10 +11,10 @@
 
     {% for post in posts %}
         <h2>
-            <a href="{% url 'category_posts' category_slug=post.category.slug  %}">{{ post.title }}</a> - 
+            <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">{{ post.title }}</a> - 
             <small>{{ post.author.first_name }} {{ post.author.last_name }}</small>
         </h2>
-        <p>{{ post.content }}</p>
+        <p>{{ post.content|truncatewords:30 }}</p>
         <p>{{ post.created_on }}</p>
         <p>{{ post.category }}</p>
         <img src="{{ post.img.url }}" alt="No image">
@@ -22,11 +22,12 @@
     {% endfor %}
 
 {% else %}
-
+        
     <p>No posts found in this category.</p>
-
+        
 {% endif %}
 
+<a href="{% url 'home' %}">Back home</a>
 
 {% if is_paginated %}
 <nav aria-label="Page navigation conatiner"></nav>
@@ -40,7 +41,6 @@ class="page-link">&laquo; Newer </a></li>
 class="page-link"> Older &raquo;</a></li>
   {% endif %}
 </ul>
-</nav></div>
 {% endif %}
 
 {% endblock content %}
