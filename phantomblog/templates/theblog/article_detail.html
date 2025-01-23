@@ -6,22 +6,22 @@
 
 {% block content %}
 
-
-<h1>{{ post.title}}</h1>
-<p>{{ post.created_on}}</p>
-{% if user.is_authenticated %}
-    {% if user.id == post.author.id %}
-        <a href="{% url 'update_post' slug=post.slug %}">Edit</a>
-        <a href="{% url 'delete_post' slug=post.slug %}">Delete</a>
-    {% endif %}
+{% if post.status == 2 %}
+    <h1>{{ post.title}}</h1>
+    <p>{{ post.created_on}}</p>
+    <a href="{% url 'category_posts' category_slug=post.category.slug %}">{{ post.category }}</a>
+{% if user.id == post.author.id %}
+    <a href="{% url 'update_post' slug=post.slug %}">Edit</a>
+    <a href="{% url 'delete_post' slug=post.slug %}">Delete</a>
 {% endif %}
 <p>by {{ post.author.first_name }} {{ post.author.last_name }}</p>
 <img src="{{ post.img.url }}" alt="No image">
 <br>
 <hr>
-<p>{{ post.content}}</p>
+<p>{{ post.content|safe }}</p>
 <br><br>
-<a href="{% url 'home' %}">Back home</a>
-
-
+<a href="{% url 'home' %}">Return home</a>
+{% else %}
+<h1>This Post Is Pending.</h1>
+{% endif %}
 {% endblock content %}

@@ -16,7 +16,6 @@
         </h2>
         <p>{{ post.content|truncatewords:30 }}</p>
         <p>{{ post.created_on }}</p>
-        <p>{{ post.category }}</p>
         <img src="{{ post.img.url }}" alt="No image">
         <br>
     {% endfor %}

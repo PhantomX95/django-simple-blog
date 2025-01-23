@@ -1,42 +1,29 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Delete a Blog Post
+    Delete {{ post.title }}
 {% endblock title %}
 
 {% block content %}
 
-{% if user.is_authenticated %}
-    {% if user.id == post.author.id %}
+{% if user.id == post.author.id %}
 
-        <h1>Delete a Blog Post</h1>
-        <br><hr>
+    <h1>Delete {{ post.title }}</h1>
+    <br><hr>
 
-        <form method="post">
-            {% csrf_token %}
-            <strong>Are you sure?</strong>
-            <br><br>
-            <button type="submit">Delete Post!</button>
-            <a href="{% url 'home' %}">
-                <button type="">No</button>
-            </a>
-        </form>
-    
-    {% else %}
-        <h1>Not authorized</h1>
-        <p>You are not authorized to delete this post.</p>
-        <p>
-            Return <a href="{% url 'home' %}">Home</a>
-        </p>
-    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        <strong>Are you sure?</strong>
+        <br><br>
+        <button type="submit">Delete Post!</button>
+        <br><br>
+        Return <a href="{% url 'home' %}">Home</a>
+    </form>
 
 {% else %}
-    <h1>Not logged in</h1>
-    <p>You must be logged in to delete a post.</p>
+    <h1>Not authorized</h1>
+    <p>You are not authorized to delete this post.</p>
     <p>
-        <a href="{% url 'signup' %}">Register</a>
-        <a href="{% url 'login' %}">Login</a>    
-
         Return <a href="{% url 'home' %}">Home</a>
     </p>
 {% endif %}
