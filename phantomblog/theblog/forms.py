@@ -6,11 +6,12 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'slug', 'title_tag', 'img', 'content', 'category')
+        fields = ('title', 'slug', 'title_tag', 'img', 'content', 'snippet', 'category')
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'slug': forms.TextInput(attrs={'class': 'form-control'}),
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
+            'snippet': forms.Textarea(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
             'img': forms.FileInput(attrs={'class': 'form-control', 'type': 'file', 'accept': 'image/*'}),
         }
@@ -37,11 +38,13 @@ class UpdatePostForm(forms.ModelForm):
     new_category = forms.CharField(required=False, help_text="Enter a new category if not listed.")
     class Meta:
         model = Post
-        fields = ('title', 'slug', 'title_tag', 'img', 'status', 'content', 'category')
+        fields = ('title', 'slug', 'title_tag', 'img', 'content', 'snippet', 'category')
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'slug': forms.TextInput(attrs={'class': 'form-control'}),
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
+            'snippet': forms.Textarea(attrs={'class': 'form-control'}),
+            'img': forms.FileInput(attrs={'class': 'form-control', 'type': 'file', 'accept': 'image/*'}),
             'category': forms.Select(attrs={'class': 'form-control'}),
         }
     # Save the new category if provided

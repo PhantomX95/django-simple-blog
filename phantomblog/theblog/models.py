@@ -35,10 +35,11 @@ class Post(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True)
     title_tag = models.CharField(max_length=255, null=True, blank=True)
     content = CKEditor5Field(config_name='extends')
+    snippet = models.CharField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=1)
-    img = models.ImageField(upload_to='photos/%Y/%m/%d/')
+    img = models.ImageField(upload_to='photos/%Y/%m/%d/', default='photos/no-image.png')
     # You have to create the first category as 'Uncategorized' so it has ID 1
     category = models.ForeignKey(Category, on_delete=models.SET_DEFAULT, default=1)
 

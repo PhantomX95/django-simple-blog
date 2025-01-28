@@ -14,7 +14,7 @@
             <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">{{ post.title }}</a> - 
             <small>{{ post.author.first_name }} {{ post.author.last_name }}</small>
         </h2>
-        <p>{{ post.content|truncatewords:30 }}</p>
+        <p>{{ post.snippet }}</p>
         <p>{{ post.created_on }}</p>
         <img src="{{ post.img.url }}" alt="No image">
         <br>

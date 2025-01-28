@@ -2,6 +2,12 @@
 
 from django.db import migrations, models
 
+def create_uncategorized(apps, schema_editor):
+    Category = apps.get_model('theblog', 'Category')
+    Category.objects.get_or_create(
+        name='Uncategorized',
+        defaults={'slug': 'uncategorized'}
+    )
 
 class Migration(migrations.Migration):
 
@@ -18,4 +24,5 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(blank=True, max_length=100, null=True, unique=True)),
             ],
         ),
+        migrations.RunPython(create_uncategorized)
     ]
