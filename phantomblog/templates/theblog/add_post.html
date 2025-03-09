@@ -6,14 +6,59 @@
 
 {% block content %}
 
-<h1>Add Blog Post</h1>
-<br><hr>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.media }}
-    {{ form.as_p }}
-    <button type="submit">Post</button>
-</form>
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <p class="fw-bold text-success mb-2">Add a Post</p>
+                <h5 class="fw-bold">Please follow the simple steps below to create your post:</h5>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-10">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column align-items-center" style="box-shadow: 0px 0px 20px 20px rgba(45,45,45,0.03);">
+                        <form class="col-10 mt-4" method="post" enctype="multipart/form-data" data-bs-theme="light">
+                            {% csrf_token %}
+                            {{ form.media }}
+                        
+                            {% for field in form %}
+                                <div class="mb-3">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {% if field.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {% for error in field.errors %}
+                                                <p>{{ error }}</p>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger">
+                                    {% for error in form.non_field_errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        
+                            <div class="d-inline-flex justify-content-evenly col-12 mt-5">
+                                <div class="mb-3">
+                                    <a class="btn btn-secondary shadow d-block w-100" role="button" href="{% url 'home' %}" style="color: rgb(255,255,255);">Back To Home</a>
+                                </div>
+                                <div class="mb-3">
+                                    <button class="btn btn-primary shadow d-block w-100" type="submit">Add a Post</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock content %}

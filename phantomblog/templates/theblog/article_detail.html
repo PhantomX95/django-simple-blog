@@ -7,21 +7,150 @@
 {% block content %}
 
 {% if post.status == 2 %}
-    <h1>{{ post.title}}</h1>
-    <p>{{ post.created_on}}</p>
-    <a href="{% url 'category_posts' category_slug=post.category.slug %}">{{ post.category }}</a>
-{% if user.id == post.author.id %}
-    <a href="{% url 'update_post' slug=post.slug %}">Edit</a>
-    <a href="{% url 'delete_post' slug=post.slug %}">Delete</a>
-{% endif %}
-<p>by {{ post.author.first_name }} {{ post.author.last_name }}</p>
-<img src="{{ post.img.url }}" alt="No image">
-<br>
-<hr>
-<p>{{ post.content|safe }}</p>
-<br><br>
-<a href="{% url 'home' %}">Return home</a>
+
+<!-- Blog's image and title -->
+<section>
+  <div class="container-fluid g-0">
+    <img data-aos="fade-down" data-aos-duration="1500" class="img-fluid w-100 min-vh-25 min-vh-md-50 mb-n7" src="{{ post.img.url }}" alt="Blog Image" style="max-height: 580px;object-fit: cover;"></div>
+  <div class="container bg-body p-5 mt-md-n6 position-relative rounded" style="box-shadow: 0px 0px 20px 20px rgba(45,45,45,0.1);">
+    <div class="row">
+      <div class="col-md-10 offset-md-1" data-aos="fade-down" data-aos-duration="500" data-aos-offset="500px">
+        <div class="text-center">
+          <a class="btn btn-outline-success smaller-btn" role="button" href="{% url 'category_posts' category_slug=post.category.slug %}" style="margin-left: 5px;margin-right: 5px;">{{ post.category }}</a>
+        </div>
+        <h1 style="margin-bottom: 25px; margin-top: 25px; font-weight: bold; text-align: center;">{{ post.title }}</h1>
+        <div class="d-flex justify-content-center mb-5">
+          <a class="d-inline-flex" href="{% url 'profile' pk=post.author.pk %}">
+            <img class="rounded img-fluid" src="{{ post.author.profile.profile_pic.url }}" alt="Author Image" style="width: 35px;height: 35px;object-fit: cover;margin-right: 5px;">
+            <p class="text-nowrap lh-1 align-self-center" style="margin: 0;font-weight: bold;">{{ post.author.first_name }} {{ post.author.last_name }} /</p>
+          </a>
+        <p class="text-nowrap align-self-center" style="margin: 0;">&nbsp;{{ post.created_on|date:"M d, Y"}}</p>
+        </div>
+        <div class="d-flex justify-content-center mt-3 mb-3">
+        {% if user.id == post.author.id %}
+          <div class="author mb-3">
+            <a class="btn btn-success smaller-btn" role="button" href="{% url 'update_post' slug=post.slug %}" style="margin-left: 5px;margin-right: 5px;">Update</a>
+            <a class="btn btn-danger btn-sm smaller-btn" role="button" href="{% url 'delete_post' slug=post.slug %}" style="margin-left: 5px;margin-right: 5px;">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 offset-md-1" data-aos="fade-right" data-aos-duration="1000">
+      <div class="lead">
+        {{ post.content|safe }}
+      </div>
+    </div>
+    <div class="col-md-10 offset-md-1" style="z-index: 3;margin-top: 40px;" id="like-sec">
+        {% if post.total_likes == 1 %}<p>one person liked this post.</p>{% elif post.total_likes > 1 %}<p>{{ post.total_likes }} people liked this post.</p>{% endif %}
+        <form action="{% url 'like_post' post.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn btn-outline-toggle-theme mb-3">
+                {% if request.user in post.likes.all %}
+                <i class="fas fa-heart" style="color: red;"></i> You Loved It
+                {% else %}
+                <i class="fa fa-heart"></i> Love
+                {% endif %}
+            </button>
+        </form>
+        <!-- Share buttons -->
+        <div class="d-flex justify-content-evenly">
+          <div data-aos="slide-up" data-aos-duration="1500">
+            <div class="sharebuttons btn-group btn-group-lg btn-group-justified" style="border-radius: 8px !important;">
+                <a href="https://x.com/intent/tweet?text={{ object.title|urlencode }}&url={{ request.build_absolute_uri|urlencode }}&via=TechHorizons" class="btn btn-xxx" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-twitter-x">
+                        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"></path>
+                    </svg>
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri|urlencode }}" class="btn btn-facebook" target="_blank">
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="https://pinterest.com/pin/create/button/?url={{ request.build_absolute_uri|urlencode }}&description={{ site_description|default:'Your Site Description'|urlencode }}&media={{ image_url|default:'#'|urlencode }}" class="btn btn-pinterest" target="_blank">
+                  <i class="fab fa-pinterest-p"></i>
+                </a>
+                <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri|urlencode }}&title={{ object.title|urlencode }}&source={{ object.title|urlencode }}" class="btn btn-linkedin" target="_blank">
+                  <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comment section -->
+<section class="mt-5">
+    <div class="container p-5 mt-md-n6 position-relative rounded">
+        <div class="row">
+            <div class="col">
+                <div class="card" data-aos="fade-up" data-aos-duration="500" style="background: rgba(154,154,154,0.06);">
+                    <div style="margin-right: 50px;margin-left: 50px;">
+                        <h5 style="margin: 20px;font-weight: bold;">Leave a Comment</h5>
+                        {% if comments.count == 1 %}
+                        <h5 style="margin: 20px;">One Comment...</h5>
+                        {% else %}
+                        <h5 style="margin: 20px;">{{ comments.count }} Comments...</h5>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                        <form method="POST" class="my-4">
+                            {% csrf_token %}
+                            {{ comment_form.as_p }}
+                            <button type="submit" class="btn btn-primary">Post Comment</button>
+                        </form>
+                        {% else %}
+                        <div class="alert alert-info">
+                            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">
+                                Log in
+                            </a>
+                            <span class="mx-2">or</span>
+                            <a href="{% url 'signup' %}?next={{ request.path }}" class="btn btn-outline-secondary">
+                                Sign up
+                            </a>
+                            <span class="mx-2">to comment</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% for comment in comments %}
+                    <div class="d-flex" style="padding-left: 22px;padding-top: 20px;padding-right: 30px;padding-bottom: 0px;">
+                        <img class="rounded-circle object-fit-cover" src="{{ comment.author.profile.profile_pic.url }}" width="48" height="48">
+                        <div>
+                            <div class="row text-end d-flex">
+                                <div class="col-xl-12 d-flex align-items-center" style="padding-left: 23px;">
+                                    <h4 style="padding-bottom: 0px;margin-bottom: 4px;">{{ comment.author.first_name }} {{ comment.author.last_name }}</h4>
+                                    <span class="font-monospace" style="padding-left: 12px;color: #697077;">{{ comment.created_at|timesince }} ago</span>
+                                </div>
+                                <div class="col-xl-11 col-xxl-12 text-break text-start d-flex align-items-xxl-center" style="padding-left: 24px;">
+                                    <p class="text-break text-start">{{ comment.body }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="d-flex" style="padding-left: 22px;padding-top: 20px;padding-right: 30px;padding-bottom: 0px;">
+                        <p>No comments yet. Be the first to comment!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% else %}
-<h1>This Post Is Pending.</h1>
+<section class="mt-5">
+  <div class="container d-flex justify-content-center p-5 mt-md-n6 position-relative rounded">
+    <div class="row">
+      <div class="col">
+        <div class="card" data-aos="fade-up" data-aos-duration="500" style="background: rgba(154,154,154,0.06);">
+          <div style="margin-right: 50px;margin-left: 50px; margin-bottom: 365px">
+            <h1 style="margin: 20px;font-weight: bold;">This Post Is Pending.</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endif %}
+
 {% endblock content %}

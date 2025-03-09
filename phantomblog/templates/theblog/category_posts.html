@@ -6,40 +6,60 @@
 
 {% block content %}
 
-<h1>posts in {{ category }} category</h1>
-{% if posts %}
 
-    {% for post in posts %}
-        <h2>
-            <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">{{ post.title }}</a> - 
-            <small>{{ post.author.first_name }} {{ post.author.last_name }}</small>
-        </h2>
-        <p>{{ post.snippet }}</p>
-        <p>{{ post.created_on }}</p>
-        <img src="{{ post.img.url }}" alt="No image">
-        <br>
-    {% endfor %}
-
-{% else %}
-        
-    <p>No posts found in this category.</p>
-        
-{% endif %}
-
-<a href="{% url 'home' %}">Back home</a>
-
-{% if is_paginated %}
-<nav aria-label="Page navigation conatiner"></nav>
-<ul class="pagination justify-content-center">
-  {% if page_obj.has_previous %}
-  <li><a href="?page={{ page_obj.previous_page_number }}"
-class="page-link">&laquo; Newer </a></li>
+<section>
+  <h2 class="text-capitalize text-center" style="margin-top: 50px;">{{ category }} Posts</h2>
+  <hr class="mx-auto" style="width: 20%;color: rgba(45,45,45,0.51);">
+  {% if posts %}
+  <div class="container py-5">
+    <div class="row">
+      {% for post in posts %}
+      <div class="col-md-6 col-lg-4" data-aos="fade-right" data-aos-duration="{{ forloop.counter|add:9 }}00">
+        <div class="blog-card blog-card-blog">
+          <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">
+            <div class="blog-card-image">
+              <img class="img-fluid img" src="{{ post.img.url }}" style="width: 100%; height: 200px; object-fit: cover;cursor: pointer;">
+              <div class="ripple-cont"></div>
+            </div>
+          </a>
+          <div class="blog-table">
+            <div class="d-flex justify-content-between align-items-center mt-2 mb-3">
+              <a class="btn btn-outline-success smaller-btn" role="button" href="{% url 'category_posts' category_slug=post.category.slug %}" style="margin-right: 5px;margin-left: 5px;">{{ post.category }}</a>
+              <p>{{ post.created_on|date:"M d, Y" }}</p>
+            </div>
+            <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">
+              <div class="blog-card-caption">
+                <h4 class="blog-card-caption">{{ post.title }}</h4>
+                <p>{{ post.snippet }}</p>
+              </div>
+            </a>
+            <div class="d-flex justify-content-center">
+              <div class="author">
+                <a class="d-flex flex-column justify-content-center align-items-center mt-4" href="{% url 'profile' pk=post.author.pk %}">
+                  <img class="d-flex flex-column justify-content-center align-items-center avatar img-raised" src="{{ post.author.profile.profile_pic.url }}" alt="author">
+                  <p class="mb-0"><small style="color:#000;">{{ post.author.first_name }} {{ post.author.last_name }}</small></p>
+                </a>
+              </div>
+            </div>
+            {% if user.is_authenticated and user.id == post.author.id and user.profile.is_writer %}
+            <div class="d-flex justify-content-center mt-4 mb-3">
+              <div class="author">
+                <a class="btn btn-success smaller-btn" role="button" href="{% url 'update_post' slug=post.slug %}" style="margin-left: 5px;margin-right: 5px;">Update</a>
+                <a class="btn btn-danger btn-sm smaller-btn" role="button" href="{% url 'delete_post' slug=post.slug %}" style="margin-left: 5px;margin-right: 5px;">Delete</a>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% else %}
+  <div class="container align-content-center" style="height: 500px;">
+    <p>No results found</p>
+  </div>
   {% endif %}
-  {% if page_obj.has_next %}
-  <li><a href="?page={{ page_obj.next_page_number }}"
-class="page-link"> Older &raquo;</a></li>
-  {% endif %}
-</ul>
-{% endif %}
+</section>
 
 {% endblock content %}

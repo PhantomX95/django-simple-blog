@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section>
+    <h2 class="text-center" style="margin-top: 50px;">All Posts</h2>
+    <hr class="mx-auto" style="width: 20%;color: rgba(45,45,45,0.51);">
+    <div class="container py-5">
+      <div class="row">
+        {% for post in posts %}
+        <div class="col-md-6 col-lg-4" data-aos="fade-right" data-aos-duration="{{ forloop.counter|add:9 }}00">
+          <div class="blog-card blog-card-blog">
+            <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">
+              <div class="blog-card-image">
+                <img class="img-fluid img" src="{{ post.img.url }}" style="width: 100%; height: 200px; object-fit: cover;cursor: pointer;">
+                <div class="ripple-cont"></div>
+              </div>
+            </a>
+            <div class="blog-table">
+              <div class="d-flex justify-content-between align-items-center mt-2 mb-3">
+                <a class="btn btn-outline-success smaller-btn" role="button" href="{% url 'category_posts' category_slug=post.category.slug %}" style="margin-right: 5px;margin-left: 5px;">{{ post.category }}</a>
+                <p>{{ post.created_on|date:"M d, Y" }}</p>
+              </div>
+              <a href="{% url 'article_detail' category_slug=post.category.slug slug=post.slug %}">
+                <div class="blog-card-caption">
+                  <h4 class="blog-card-caption">{{ post.title }}</h4>
+                  <p>{{ post.snippet }}</p>
+                </div>
+              </a>
+              <div class="d-flex justify-content-center">
+                <div class="author">
+                  <a class="d-flex flex-column justify-content-center align-items-center mt-4" href="{% url 'profile' pk=post.author.pk %}">
+                    <img class="d-flex flex-column justify-content-center align-items-center avatar img-raised" src="{{ post.author.profile.profile_pic.url }}" alt="author">
+                    <p class="mb-0"><small style="color:#000;">{{ post.author.first_name }} {{ post.author.last_name }}</small></p>
+                  </a>
+                </div>
+              </div>
+              {% if user.is_authenticated and user.id == post.author.id and user.profile.is_writer %}
+              <div class="d-flex justify-content-center mt-4 mb-3">
+                <div class="author">
+                  <a class="btn btn-success smaller-btn" role="button" href="{% url 'update_post' slug=post.slug %}" style="margin-left: 5px;margin-right: 5px;">Update</a>
+                  <a class="btn btn-danger btn-sm smaller-btn" role="button" href="{% url 'delete_post' slug=post.slug %}" style="margin-left: 5px;margin-right: 5px;">Delete</a>
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+
+
+{% endblock content %}

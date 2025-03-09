@@ -1,0 +1,370 @@
+:root,
+[data-bs-theme=light] {
+    --bs-primary: #31f1ff;
+    --bs-primary-rgb: 49, 241, 255;
+    --bs-primary-text-emphasis: #146066;
+    --bs-primary-bg-subtle: #D6FCFF;
+    --bs-primary-border-subtle: #ADF9FF;
+    --bs-secondary: #ff008a;
+    --bs-secondary-rgb: 255, 0, 138;
+    --bs-secondary-text-emphasis: #660037;
+    --bs-secondary-bg-subtle: #FFCCE8;
+    --bs-secondary-border-subtle: #FF99D0
+}
+
+.btn-primary {
+    --bs-btn-color: #000000;
+    --bs-btn-bg: #31f1ff;
+    --bs-btn-border-color: #31f1ff;
+    --bs-btn-hover-color: #000000;
+    --bs-btn-hover-bg: #50F3FF;
+    --bs-btn-hover-border-color: #46F2FF;
+    --bs-btn-focus-shadow-rgb: 7, 36, 38;
+    --bs-btn-active-color: #000000;
+    --bs-btn-active-bg: #5AF4FF;
+    --bs-btn-active-border-color: #46F2FF;
+    --bs-btn-disabled-color: #000000;
+    --bs-btn-disabled-bg: #31f1ff;
+    --bs-btn-disabled-border-color: #31f1ff
+}
+
+.btn-outline-primary {
+    --bs-btn-color: #31f1ff;
+    --bs-btn-border-color: #31f1ff;
+    --bs-btn-focus-shadow-rgb: 49, 241, 255;
+    --bs-btn-hover-color: #000000;
+    --bs-btn-hover-bg: #31f1ff;
+    --bs-btn-hover-border-color: #31f1ff;
+    --bs-btn-active-color: #000000;
+    --bs-btn-active-bg: #31f1ff;
+    --bs-btn-active-border-color: #31f1ff;
+    --bs-btn-disabled-color: #31f1ff;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #31f1ff
+}
+
+.btn-secondary {
+    --bs-btn-color: #000000;
+    --bs-btn-bg: #ff008a;
+    --bs-btn-border-color: #ff008a;
+    --bs-btn-hover-color: #000000;
+    --bs-btn-hover-bg: #FF269C;
+    --bs-btn-hover-border-color: #FF1996;
+    --bs-btn-focus-shadow-rgb: 38, 0, 21;
+    --bs-btn-active-color: #000000;
+    --bs-btn-active-bg: #FF33A1;
+    --bs-btn-active-border-color: #FF1996;
+    --bs-btn-disabled-color: #000000;
+    --bs-btn-disabled-bg: #ff008a;
+    --bs-btn-disabled-border-color: #ff008a
+}
+
+.btn-outline-secondary {
+    --bs-btn-color: #ff008a;
+    --bs-btn-border-color: #ff008a;
+    --bs-btn-focus-shadow-rgb: 255, 0, 138;
+    --bs-btn-hover-color: #000000;
+    --bs-btn-hover-bg: #ff008a;
+    --bs-btn-hover-border-color: #ff008a;
+    --bs-btn-active-color: #000000;
+    --bs-btn-active-bg: #ff008a;
+    --bs-btn-active-border-color: #ff008a;
+    --bs-btn-disabled-color: #ff008a;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: #ff008a
+}
+
+[data-bs-theme=dark] {
+    --bs-secondary-color: rgba(255, 255, 255, 0.75);
+    --bs-secondary-color-rgb: 255, 255, 255, 0.75;
+    --bs-focus-ring-color: rgba(55, 99, 244, 0.25)
+}
+
+/* SHAREBUTTONS ========================= */
+
+.sharebuttons a { color: #fff !important;}
+.btn-facebook { background: #3b5998; border-radius: 0px !important;}
+.btn-xxx { background: #141414; border-radius: 0px !important;}
+.btn-google { background: #dd4b39; border-radius: 0px !important;}
+.btn-pinterest { background: #c8232c; border-radius: 0px !important;}
+.btn-linkedin { background: #0e76a8; border-radius: 0px !important;}
+.btn-facebook:hover { background: #2f4679;}
+.btn-xxx:hover { background: #2c2c2c;}
+.btn-google:hover { background: #b03b2d;}
+.btn-pinterest:hover { background: #9f1b23;}
+.btn-linkedin:hover { background: #0b5e85;}
+
+/* Light Mode (default) */
+.btn-toggle-theme {
+    background-color: var(--bs-primary); /* Solid background */
+    border-color: var(--bs-primary);
+    color: white;
+  }
+  
+  /* Dark Mode */
+  body[data-bs-theme="dark"] .btn-toggle-theme {
+    background-color: transparent; /* Outlined style */
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+  }
+
+.smaller-btn {
+    padding: 2px 8px;
+    font-size: .7rem;
+    transform: scale(1.1);
+    transition: transform .2s 0.1s
+}
+
+.smaller-btn:hover {
+    color: #fff;
+    transform: scale(1.2)
+}
+
+.modal-content {
+    border-radius: 13px
+}
+
+.img-thumbnail {
+    border-radius: 33px;
+    width: 61px;
+    height: 61px
+}
+
+.smd {
+    width: 90px;
+    font-size: small;
+    text-align: center
+}
+
+.modal-footer {
+    display: block
+}
+
+.ur {
+    border: none;
+    background-color: #e6e2e2;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px
+}
+
+.cpy {
+    border: none;
+    background-color: #e6e2e2;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    cursor: pointer
+}
+
+button.focus,
+button:focus {
+    outline: 0;
+    box-shadow: none !important
+}
+
+.message {
+    font-size: 11px;
+    color: #ee5535
+}
+
+.mb-n7 {
+    margin-bottom: -5rem !important
+}
+
+@media (min-width:768px) {
+    .min-vh-md-50 {
+        min-height: 50vh !important
+    }
+}
+
+.min-vh-25 {
+    min-height: 25vh !important
+}
+
+.infinite-scroller {
+    overflow: hidden
+}
+
+.infinite-scroller .scrollable {
+    display: flex;
+    width: fit-content;
+    animation: 30s linear infinite slide-to-left
+}
+
+.infinite-scroller.pause-on-hover .scrollable:hover {
+    animation-play-state: paused
+}
+
+@keyframes slide-to-left {
+    0% {
+        transform: translate3d(0, 0, 0)
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0)
+    }
+}
+
+.infinite-scroller .scrollable>div {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-width: 100vw
+}
+
+.infinite-scroller .scrollable>div>* {
+    margin: 0 20px
+}
+
+.blog-card-blog {
+    margin-top: 30px
+}
+
+.blog-card {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    margin-bottom: 30px;
+    border-radius: 6px;
+    color: rgba(0, 0, 0, .87);
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12)
+}
+
+.blog-card .blog-card-image {
+    height: 60%;
+    position: relative;
+    overflow: hidden;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: -30px;
+    border-radius: 6px;
+    box-shadow: 0 16px 38px -12px rgba(0, 0, 0, .56), 0 4px 25px 0 rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2)
+}
+
+.blog-card .blog-card-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    pointer-events: none
+}
+
+.blog-card .blog-table {
+    padding: 15px 30px
+}
+
+.blog-table {
+    margin-bottom: 0
+}
+
+.blog-category {
+    position: relative;
+    line-height: 0;
+    margin: 15px 0
+}
+
+.blog-text-success {
+    color: #6f6f6f !important
+}
+
+.blog-card-blog .blog-card-caption {
+    margin-top: 5px
+}
+
+.blog-card-caption {
+    font-weight: 700;
+    font-family: "Roboto Slab", "Times New Roman", serif
+}
+
+.blog-card-caption,
+.blog-card-caption a {
+    color: #333;
+    text-decoration: none
+}
+
+.blog-card .ftr {
+    margin-top: 15px
+}
+
+.blog-card .ftr .author {
+    color: #888
+}
+
+.blog-card .ftr div {
+    display: inline-block
+}
+
+.blog-card .author .avatar {
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 5px
+}
+
+.blog-card .ftr .stats {
+    position: relative;
+    top: 1px;
+    font-size: 14px;
+    float: right;
+    line-height: 30px
+}
+
+#theme-toggle-container .form-check-input {
+    opacity: 0;
+    position: absolute
+}
+
+#theme-toggle-container .form-check-label {
+    background-color: #111;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+    height: 26px;
+    width: 50px
+}
+
+#theme-toggle-container .form-check-label .ball {
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: 22px;
+    width: 22px;
+    transform: translateX(0);
+    transition: transform .2s linear
+}
+
+#theme-toggle-container .form-check-input:checked+.form-check-label .ball {
+    transform: translateX(24px)
+}
+
+#theme-toggle-container .fa-moon {
+    color: #f1c40f
+}
+
+#theme-toggle-container .fa-sun {
+    color: #f39c12
+}
+
+/* CKEditor DarkMode CSS */
+:root {
+    --ck-color-base-background: #ffffff;
+    --ck-color-text: #000000;
+  }
+  
+  .dark-mode {
+    --ck-color-base-background: #1a1a1a;
+    --ck-color-text: #ffffff;
+  }
+  
+  .ck-content {
+    background: var(--ck-color-base-background) !important;
+    color: var(--ck-color-text) !important;
+    min-height: 300px;
+  }
+  

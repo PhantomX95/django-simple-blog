@@ -1,17 +1,170 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html data-bs-theme="auto" lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>
         {% block title %}
-            Phantom Blog
+            Tech Horizons
         {% endblock title %}
     </title>
+    <meta name="description" content="Welcome to Tech Horizons, your gateway to the ever-evolving world of technology! Here, we explore the latest trends, breakthroughs, and innovations shaping our future. From artificial intelligence and quantum computing to cybersecurity, blockchain, and beyond, our blog dives deep into the most exciting topics in tech today. Whether you're a curious beginner or a seasoned tech enthusiast, Tech Horizons offers insightful articles, expert analysis, and practical guides to keep you informed and inspired. Join us as we unravel the complexities of modern technology and discover how it’s transforming the way we live, work, and connect. Together, let’s push the boundaries of what’s possible!">
+    <link rel="icon" type="image/png" sizes="531x567" href="{% static 'images/logo.png' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/aos.min.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jua&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}">
 </head>
-<body>
+<body style="overflow-x: hidden;">
+    <!-- top navigation bar -->
+    <div style="background: rgba(176,57,255,0.04);">
+      <div class="container">
+        <div class="row">
+          <div class="col d-flex justify-content-between py-1">
+            <div>
+              <ul class="list-inline d-inline-block d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center mb-0">
+                <li class="list-inline-item me-2">
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li class="list-inline-item d-lg-flex justify-content-lg-center align-items-lg-center me-2">
+                  <a class="d-xl-flex align-items-xl-center" href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-twitter-x">
+                      <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z"></path>
+                    </svg>
+                  </a>
+                </li>
+                <li class="list-inline-item me-2">
+                  <a class="d-lg-flex justify-content-lg-center align-items-lg-center" href="#">
+                    <i class="fab fa-instagram"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="d-lg-flex justify-content-lg-center align-items-lg-center" href="#">
+                    <i class="fab fa-pinterest-p"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div id="theme-toggle-container">
+              <div class="form-check form-switch">
+                  <input id="themeSwitch" class="form-check-input" type="checkbox" />
+                  <label class="form-check-label" for="themeSwitch">
+                      <i class="fas fa-moon"></i><i class="fas fa-sun"></i>
+                      <div class="ball"></div>
+                  </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Navbar -->
+    <header id="header-23">
+      <nav class="navbar navbar-expand-md sticky-top navbar-shrink py-3" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand d-flex align-items-center me-auto" href="{% url 'home' %}">
+            <img class="me-1" src="{% static 'images/logo.png' %}" style="width: 40px;">
+            <span>Tech Horizons</span>
+          </a>
+          <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse text-center" id="navcol-1">
+            <div class="input-group d-md-none">
+              <input class="form-control" type="text" placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2-2">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+            <ul class="navbar-nav mx-auto">
+              <li class="nav-item"><a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
+              <li class="nav-item"><a class="nav-link {% if request.path == '/all-posts/' %}active{% endif %}" href="{% url 'all-posts' %}">All Posts</a></li>
+              <li class="nav-item dropdown">
+                <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">Categories</a>
+                <div class="dropdown-menu">
+                  {% for category in categories %}
+                  <a class="dropdown-item" href="{% url 'category_posts' category.slug %}">{{ category.name }}</a>
+                  {% endfor %}
+                </div>
+              </li>
+              <li class="nav-item"><a class="nav-link {% if request.path == '/contact-us/' %}active{% endif %}" href="{% url 'contact-us' %}">Contact us</a></li>
+              <li class="nav-item"><a class="nav-link {% if request.path == '/about-us/' %}active{% endif %}" href="{% url 'about-us' %}">About us</a></li>
+              <li class="nav-item d-none d-md-flex align-items-md-center"><i class="fas fa-search" data-bs-target="#searchmodal" data-bs-toggle="modal" style="cursor: pointer;"></i></li>
+            </ul>
+            {% if not user.is_authenticated %}
+            <a class="btn btn-primary shadow" role="button" href="{% url 'login' %}" data-bs-target="{% url 'login' %}"
+              style="padding: 7px 20px;">Login</a>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <!-- Profile Dropdown Container -->
+            <div class="dropdown position-relative d-inline-block">
+              <button class="btn rounded-circle p-0" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="width: 55px; height: 55px;">
+                <img src="{{ user.profile.profile_pic.url }}" class="rounded-circle img-fluid object-fit-cover w-100 h-100" alt="{{ user.first_name }} {{ user.last_name }}">
+              </button>
+              <ul class="dropdown-menu position-absolute start-50 translate-middle-x mt-2" aria-labelledby="userDropdown">
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{% url 'profile' pk=user.pk %}">
+                    <i class="fa fa-user me-1"></i>
+                    <span>Profile</span>
+                  </a>
+                </li>
+                {% if user.profile.is_writer %}
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{% url 'add_post' %}">
+                    <i class="fas fa-pen-square me-1"></i>
+                    <span>Add a Blog Post</span>
+                  </a>
+                </li>
+                {% endif %}
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{% url 'edit_profile' pk=user.pk %}">
+                    <i class="fas fa-user-edit me-1"></i>
+                    <span>Edit Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{% url 'edit_user_settings' pk=user.pk %}">
+                    <i class="fas fa-cogs me-1"></i>
+                    <span>Account Settings</span>
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider m-0"></li>
+                <li>
+                  <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="dropdown-item text-center py-2" type="submit">
+                      <span class="text-danger" style="font-weight: bold;">Logout</span>
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    </header>
+    <!-- Search Modal -->
+    <div class="modal fade" role="dialog" tabindex="-1" id="searchmodal" style="padding-top: 200px;">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form method="GET" action="{% url 'home' %}" class="input-group">
+                {{ search_form.search }}
+                <button class="btn btn-secondary" type="submit" id="button-addon2" style="color: rgb(255,255,255);">
+                  <i class="fas fa-search"></i>
+                </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     {% if messages %}
-    <div>
+    <div class="container">
         {% for message in messages %}
         <div class="alert alert-{{ message.tags }}">
             {{ message }}
@@ -19,7 +172,83 @@
         {% endfor %}
     </div>
     {% endif %}
+
+
     {% block content %}
     {% endblock content %}
+
+    {% if is_paginated %}
+      <div class="flex justify-content-center pagination mb-3">
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}{% if query %}&search={{ query }}{% endif %}" class="page-link" style="color:var(--bs-success)">« Newer</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}{% if query %}&search={{ query }}{% endif %}" class="page-link" style="color:var(--bs-success)">Older »</a>
+        {% endif %}
+      </div>
+    {% endif %}    
+    <!-- The footer Section -->
+    <footer class="bg-dark bg-primary-gradient" style="background: var(--bs-emphasis-color);color: var(--bs-primary);">
+      <div class="container py-4 py-lg-5">
+        <div class="row justify-content-center">
+          <!-- First footer list -->
+          <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column" style="color: var(--bs-light);">
+            <h3 class="fs-6 fw-bold" style="color: var(--bs-primary);">Our Social Links</h3>
+            <ul class="list-unstyled">
+              <li><a href="#" style="color: rgba(255,255,255,0.75);">Facebook</a></li>
+              <li><a href="#" style="color: rgba(255,255,255,0.75);">Instagram</a></li>
+              <li><a href="#" style="color: rgba(255,255,255,0.75);">X</a></li>
+              <li><a href="#" style="color: rgba(255,255,255,0.75);">Pinterest</a></li>
+            </ul>
+          </div>
+          <!-- Second footer list -->
+          <div class="col-sm-4 col-md-3 text-center text-lg-start d-flex flex-column" style="color: var(--bs-light);">
+            <h3 class="fs-6 fw-bold" style="color: var(--bs-primary);">Links</h3>
+            <ul class="list-unstyled" style="color: var(--bs-light);">
+              <li><a href="{% url 'all-posts' %}" style="color: rgba(255,255,255,0.75);">All posts</a></li>
+              <li><a href="{% url 'contact-us' %}" style="color: rgba(255,255,255,0.75);">Join us</a></li>
+              <li><a href="{% url 'contact-us' %}" style="color: rgba(255,255,255,0.75);">Contact us</a></li>
+              <li><a href="{% url 'about-us' %}" style="color: rgba(255,255,255,0.75);">About us</a></li>
+            </ul>
+          </div>
+          <!-- Brand and small description -->
+          <div class="col-lg-3 text-center text-lg-start d-flex flex-column align-items-center order-first align-items-lg-start order-lg-last" style="color: var(--bs-light);">
+            <a class="fw-bold d-flex align-items-center mb-2" href="{% url 'home' %}" style="color: var(--bs-light);">
+              <img class="me-1" src="{% static 'images/logo.png' %}" style="width: 40px;color: var(--bs-light);">
+              <span style="color: var(--bs-primary);">Tech Horizons</span>
+            </a>
+            <p>Your gateway to the ever-evolving world of technology!</p>
+          </div>
+        </div>
+        <hr>
+        <!-- Down footer -->
+        <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+          <p class="mb-0" style="color: rgba(255,255,255,0.5);">Copyright © {% now "Y" %} Tech Horizons</p>
+          <div>
+            <ul class="list-inline d-inline-block d-lg-flex d-xl-flex align-items-lg-center align-items-xl-center mb-0">
+              <li class="list-inline-item me-2"><a href="#"><i class="fab fa-facebook-f text-primary"></i></a></li>
+              <li class="list-inline-item d-lg-flex justify-content-lg-center align-items-lg-center me-2"><a
+                  class="d-xl-flex align-items-xl-center" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em"
+                    height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-twitter-x text-primary">
+                    <path
+                      d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865l8.875 11.633Z">
+                    </path>
+                  </svg></a></li>
+              <li class="list-inline-item me-2"><a class="d-lg-flex justify-content-lg-center align-items-lg-center"
+                  href="#"><i class="fab fa-instagram text-primary" style="width: 16px;"></i></a></li>
+              <li class="list-inline-item"><a class="d-lg-flex justify-content-lg-center align-items-lg-center"
+                  href="#"><i class="fab fa-pinterest-p text-primary" style="width: 16px;"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/dark-mode.min.js' %}"></script>
+    <script src="{% static 'js/script.min.js' %}"></script>
+    <script src="{% static 'js/aos.min.min.js' %}"></script>
+    <script src="{% static 'js/switch-dark-light-theme.js' %}"></script>
 </body>
 </html>

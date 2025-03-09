@@ -1,30 +1,104 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Profile
+    {{ user.first_name }}'s Profile
 {% endblock title %}
 
 {% block content %}
 
-<h1>Edit Your Profile</h1>
-<br><hr>
+<section class="py-5">
+    <div class="container py-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <p class="fw-bold text-success mb-2">Account Details</p>
+                <h5 class="fw-bold">Feel free to edit your basic information such as name, email etc...</h5>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column align-items-center" style="box-shadow: 0px 0px 20px 20px rgba(45,45,45,0.03);">
+                        <form method="post" enctype="multipart/form-data" data-bs-theme="light" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            <!-- First Name -->
+                            <div class="mb-4 mt-4">
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.first_name.errors|first }}
+                                </div>
+                                {% endif %}
+                            </div>
 
-{% if user.is_authenticated %}
+                            <!-- Last Name -->
+                            <div class="mb-4">
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.last_name.errors|first }}
+                                </div>
+                                {% endif %}
+                            </div>
 
-<h1>Profile</h1>
+                            <!-- Username -->
+                            <div class="mb-4">
+                                {{ form.username }}
+                                {% if form.username.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.username.errors|first }}
+                                </div>
+                                {% endif %}
+                            </div>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Update</button>
-</form>
-{% else %}
-    <h1>Not logged in</h1>
-    <p>You are not logged in. Please <a href="{% url 'login' %}">login</a> to view your profile.</p>
-{% endif %}
+                            <!-- Email -->
+                            <div class="mb-4">
+                                {{ form.email }}
+                                {% if form.email.errors %}
+                                <div class="invalid-feedback d-block">
+                                    {{ form.email.errors|first }}
+                                </div>
+                                {% endif %}
+                            </div>
 
-<p>
-    Return <a href="{% url 'home' %}">Home</a>
-</p>
+                            <!-- Password Fields Section -->
+                            <div class="border-top pt-4 mt-4">
+                                <h5 class="mb-3">Password Change</h5>
+                                
+                                <!-- Change Password -->
+                                <div class="mb-3">
+                                    {{ form.password1 }}
+                                        <small>{{ form.password1.help_text|safe }}</small>
+                                    {% if form.password1.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.password1.errors|first }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Confirm Password -->
+                                <div class="mb-3">
+                                    {{ form.password2 }}
+                                        <small>{{ form.password2.help_text|safe }}</small>
+                                    {% if form.password2.errors %}
+                                        <div class="invalid-feedback d-block">
+                                            {{ form.password2.errors|first }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary shadow d-block w-100" type="submit">Save</button>
+                            </div>
+                            <div class="mb-3">
+                                <a class="btn btn-secondary shadow d-block w-100" role="button" href="{% url 'home' %}" style="color: rgb(255,255,255);">Return home</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock content %}

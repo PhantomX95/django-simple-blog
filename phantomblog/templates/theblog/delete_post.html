@@ -6,26 +6,33 @@
 
 {% block content %}
 
-{% if user.id == post.author.id %}
 
-    <h1>Delete {{ post.title }}</h1>
-    <br><hr>
-
-    <form method="post">
-        {% csrf_token %}
-        <strong>Are you sure?</strong>
-        <br><br>
-        <button type="submit">Delete Post!</button>
-        <br><br>
-        Return <a href="{% url 'home' %}">Home</a>
-    </form>
-
-{% else %}
-    <h1>Not authorized</h1>
-    <p>You are not authorized to delete this post.</p>
-    <p>
-        Return <a href="{% url 'home' %}">Home</a>
-    </p>
-{% endif %}
+<section class="py-5 mt-5 mb-5">
+    <div class="container py-5 mb-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <p class="fw-bold text-success mb-2">Delete Post</p>
+                <h5 class="fw-bold">Are you sure you want to delete {{ post.title }}?</h5>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                    <div class="card-body text-center d-flex flex-column align-items-center" style="box-shadow: 0px 0px 20px 20px rgba(45,45,45,0.03);">
+                        <form method="post" data-bs-theme="light">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <button class="btn btn-primary shadow d-block w-100" type="submit">Yes</button>
+                            </div>
+                            <div class="mb-3">
+                                <a class="btn btn-secondary shadow d-block w-100" role="button" href="{% url 'home' %}" style="color: rgb(255,255,255);">Back to Home</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock content %}
