@@ -98,4 +98,4 @@ Tech Horizons is a Django-powered blog website where technology enthusiasts and 
 
 ---
 
-This README provides a comprehensive guide to set up the Django Blog application, explains the core features, and offers instructions on how to contribute.
+This README explains the key features, workflow, and the roles of different users. It now includes the additional information on the default "Uncategorized" category and how popular posts are determined by like counts.
