@@ -27,16 +27,17 @@ Tech Horizons is a Django-powered blog website where technology enthusiasts and 
 - Likes & Comments: Readers can like posts. Authenticated users can comment on posts. Like counts and comments are shown on the post detail page.
 
 ## How it Works
+
 ## Becoming a Writer
 
-- User Registration:** Any visitor can sign up for an account. Once registered, the user can create a profile.
-- Admin Approval:** By default, users are not writers. An administrator must mark a user’s profile as a writer by setting the is_writer flag (accessible in the Django admin).
-- Post Creation:** Once approved (i.e., is_writer is set to True), a writer can access the “Add Post” page. Writers fill out the post form—which includes fields for title, content (using CKEditor), a snippet, an image, and optionally a new category—and then submit the post.
+- User Registration: Any visitor can sign up for an account. Once registered, the user can create a profile.
+- Admin Approval: By default, users are not writers. An administrator must mark a user’s profile as a writer by setting the is_writer flag (accessible in the Django admin).
+- Post Creation: Once approved (i.e., is_writer is set to True), a writer can access the “Add Post” page. Writers fill out the post form—which includes fields for title, content (using CKEditor), a snippet, an image, and optionally a new category—and then submit the post.
 
 ## Post Approval Process
 
-- Submission:** When a writer adds or updates a post, the post status is set to “Pending.” This indicates that the post awaits administrative review.
-- Review:** An administrator reviews posts in the Django admin panel. The admin may then change the status to “Published” to make the post publicly viewable.
+- Submission: When a writer adds or updates a post, the post status is set to “Pending.” This indicates that the post awaits administrative review.
+- Review: An administrator reviews posts in the Django admin panel. The admin may then change the status to “Published” to make the post publicly viewable.
 
 ### Admin Workflow
 
@@ -49,7 +50,7 @@ Tech Horizons is a Django-powered blog website where technology enthusiasts and 
 
    ```bash
    git clone https://github.com/PhantomX95/django-simple-blog.git
-   cd django-blog
+   cd phantomblog
    ```
 
 2. Create a virtual environment:
@@ -72,7 +73,7 @@ Tech Horizons is a Django-powered blog website where technology enthusiasts and 
    ```
   - The migration automatically creates the "Uncategorized" category if it does not exist.
 
-5. The super user is username:admin password:admin, Or create a superuser to access the Django admin panel:
+5. The super user is username: admin password: admin, Or create a superuser to access the Django admin panel:
 
    ```bash
    python manage.py createsuperuser
@@ -86,7 +87,7 @@ Tech Horizons is a Django-powered blog website where technology enthusiasts and 
 
 7. Open your browser and visit the application:
 
-   [http://127.0.0.1:8000/]
+   http://127.0.0.1:8000/
 
 ## Usage
 
@@ -97,4 +98,4 @@ Tech Horizons is a Django-powered blog website where technology enthusiasts and 
 
 ---
 
-This README provides a comprehensive guide to set up the Django Blog application, explains the core features and technologies, and offers instructions on how to contribute.
+This README provides a comprehensive guide to set up the Django Blog application, explains the core features, and offers instructions on how to contribute.
