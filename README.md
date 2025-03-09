@@ -6,9 +6,9 @@ Tech Horizons is a Django-powered blog website where technology enthusiasts and 
 
 ## Features
 
-- **User Registration & Authentication: You can sign up or log in using either a username or an email address. Custom authentication in the project supports both options.
-- **Profile Management: Every user has a profile with a profile picture, bio, location, and social media links. A logged-in user can edit their account details and profile information.
-- **Writer Role: Users can become writers (blog authors) after being approved by an administrator. Writers can create, update, or delete posts using dedicated views.
+- User Registration & Authentication: You can sign up or log in using either a username or an email address. Custom authentication in the project supports both options.
+- Profile Management: Every user has a profile with a profile picture, bio, location, and social media links. A logged-in user can edit their account details and profile information.
+- Writer Role: Users can become writers (blog authors) after being approved by an administrator. Writers can create, update, or delete posts using dedicated views.
    - Becoming a Writer: Users are not writers by default. An administrator must mark a user’s profile as a writer (by setting the is_writer flag in the Django admin).
    - Post Creation: Once approved as a writer, users can create, update, or delete posts. Posts are created through a dedicated “Add Post” interface that supports rich text (via CKEditor) and image uploads. Newly created or updated posts default to a “Pending” status until reviewed by an administrator.
    - **Post Approval Workflow: When a writer submits a post, its status is set to “Pending.” An administrator must then review and approve the post by changing its status to “Published” so that it is visible on the website.
